@@ -4,7 +4,7 @@ import "./item-add-form.css";
 
 export default class ItemAddForm extends Component {
   state = {
-    lebel: "",
+    label: "",
   };
 
   onLabelChenge = (elem) => {
@@ -16,7 +16,9 @@ export default class ItemAddForm extends Component {
   onSubmit = (elem) => {
     elem.preventDefault();
     this.props.addItem(this.state.label);
-    this.setState({ label: "" });
+    this.setState({
+      label: "",
+    });
   };
 
   render() {
