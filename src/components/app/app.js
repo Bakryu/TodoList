@@ -17,7 +17,7 @@ export default class App extends Component {
       this.createTodoItem("Have a lunch "),
     ],
     term: "",
-    filter: "active",
+    filter: "all",
   };
   toggleProperty(arr, id, propName) {
     const idx = arr.findIndex((el) => el.id === id);
@@ -80,6 +80,9 @@ export default class App extends Component {
   onSearchChange = (term) => {
     this.setState({ term });
   };
+  onFilterChange = (filter) => {
+    this.setState({ filter });
+  };
 
   filter(items, filter) {
     switch (filter) {
@@ -95,8 +98,8 @@ export default class App extends Component {
   }
 
   render() {
-    const { todoData, term,filter } = this.state;
-    const visibleItems = this.filter(this.search(todoData, term),filter);
+    const { todoData, term, filter } = this.state;
+    const visibleItems = this.filter(this.search(todoData, term), filter);
     const doneCount = this.state.todoData.filter((item) => item.done).length;
     const todoCount = this.state.todoData.length - doneCount;
     return (
@@ -104,7 +107,10 @@ export default class App extends Component {
         <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel onSearchChange={this.onSearchChange} />
-          <ItemStatusFilter />
+          <ItemStatusFilter
+            filter={filter}
+            onFilterChange={this.onFilterChange}
+          />
         </div>
 
         <TodoList
